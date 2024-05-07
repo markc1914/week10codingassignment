@@ -5,7 +5,9 @@ const gameModeName = 'game-mode';
 const numKillsName = 'num-kills'
 const numDeathsName = 'num-deaths';
 const tableName = 'list';
+const globalKD = 'globalKD';
 
+let allgamesPlayed = [];
 class GamePlayed {
 
   /**
@@ -22,7 +24,12 @@ class GamePlayed {
     this.mode = mode;
     this.kills = kills;
     this.deaths = deaths;
-    this.killDeathRatio = kills / deaths;
+    this.killDeathRatio = 0;
+    if(deaths>0) {
+      this.killDeathRatio = parseFloat(kills / deaths).toFixed(2);
+    } else {
+      this.killDeathRatio = kills;
+    }
   }
 
 }
@@ -37,6 +44,7 @@ document.getElementById(btnAddName).addEventListener('click',()=>{
   let numKills = document.getElementById(numKillsName).value;
   let numDeaths = document.getElementById(numDeathsName).value;
   let gamePlayed = new GamePlayed(gamePlayedDate,gameMap,gameMode,numKills,numDeaths);
+  allgamesPlayed.push(gamePlayed);
   let table = document.getElementById(tableName);
   let row = table.insertRow(rowId+1);
   row.setAttribute('id',`game-${rowId}`);
@@ -49,11 +57,13 @@ document.getElementById(btnAddName).addEventListener('click',()=>{
   let actions = row.insertCell(6);
   actions.appendChild(createDeleteButton(rowId++));
   document.getElementById(datePlayed).value = '';
-  document.getElementById(gameMapName).value = '';
+  document.getElementById(mapName).value = '';
   gameMode = document.getElementById(gameModeName).value = '';
   document.getElementById(numKillsName).value = 0;
   document.getElementById(numDeathsName).value = 0;
+  recalculateGlobalKDRatio();
 });
+
 
 /**
  * creates delete button for a row in a table based on that id
@@ -68,6 +78,15 @@ function createDeleteButton(rowId) {
   button.onclick = () => {
     let rowToDelete = document.getElementById(`game-${rowId}`);
     rowToDelete.parentNode.removeChild(rowToDelete);
+    allgamesPlayed.splice(rowId,1);
+    recalculateGlobalKDRatio();
   };
   return button;
+}
+
+function recalculateGlobalKDRatio(){
+  let averageKD = allgamesPlayed.reduce((average,gamePlayed)=> {
+    return average + gamePlayed.killDeathRatio / allgamesPlayed.length;
+  }, 0);
+  document.getElementById(globalKD).value = parseFloat(averageKD).toFixed(2);
 }
