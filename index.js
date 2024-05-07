@@ -56,6 +56,13 @@ function validateForm(gamePlayedDate, gameMap, gameMode) {
     alert("Date must be filled out");
     return false;
   }
+  //don't allow future games either
+  let gamePlayedDateAsDate = new Date(gamePlayedDate);
+  if (gamePlayedDateAsDate > new Date()) {
+    alert("Date must not be in the future");
+    return false;
+  }
+
   if (gameMap == '') {
     alert("Map must be chosen");
     return false;
@@ -148,7 +155,6 @@ function recalculateGlobalKDRatio(gamesPlayed) {
   } else {
     document.getElementById(globalKD).value = 0;
   }
-  return 0;
 }
 
 module.exports = {

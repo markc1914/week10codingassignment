@@ -52,14 +52,18 @@ describe('Week 10 Coding Assignment Test Suite:', () => {
   })
   describe('calculating global KD should work', () => {
     it('Should properly calculate K/D ratio', () => {
-      let ratio = recalculateGlobalKDRatio();
-      expect(ratio).to.equal(0);
+      //make sure it does nothing when input is incorrect
       expect(document.getElementById('globalKD').value).to.equal('0');
       let gamesPlayed = []
       let game1 = new GamePlayed('Any', 'Any', 'Any', 10, 5);
       gamesPlayed.push(game1);
       recalculateGlobalKDRatio(gamesPlayed);
       expect(document.getElementById('globalKD').value).to.equal('2.00');
+      let game2 = new GamePlayed(new Date(),'Any','Any',0,5);
+      gamesPlayed.push(game2);
+      recalculateGlobalKDRatio(gamesPlayed);
+      //ensure the calculation is a proper weighted average
+      expect(document.getElementById('globalKD').value).to.equal('1.00');
     })
   })
 });
