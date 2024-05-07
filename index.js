@@ -1,3 +1,7 @@
+/**
+ * Week 10 Assignment Javascript file
+ * Written by Mark Cornelius
+ */
 const btnAddName = 'add';
 const datePlayed = 'date-played';
 const mapName = 'map-name';

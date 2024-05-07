@@ -1,3 +1,9 @@
+/**
+ * Unit test file for Week 10 Assignment
+ * Written by Mark Cornelius
+ * Help fron Google Search for Sinon and JSDOM
+ */
+
 const chai = require('chai');
 const expect = require('chai').expect;
 const JSDOM = require('jsdom').JSDOM;
