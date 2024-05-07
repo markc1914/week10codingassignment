@@ -104,7 +104,7 @@ const newLocal = 'button';
  * @returns the delete button for that row
  */
 function createDeleteButton(currentRow) {
-  if(currentRow != null && currentRow != 'undefined' && currentRow >= 0) {
+  if (currentRow != null && currentRow != 'undefined' && currentRow >= 0) {
     let button = document.createElement(newLocal);
     button.className = 'btn btn-primary'; //add styling
     button.id = currentRow;
@@ -125,7 +125,7 @@ function createDeleteButton(currentRow) {
  * @param {[GamePlayed]} allgamesPlayed
  */
 function recalculateGlobalKDRatio(gamesPlayed) {
-  if(gamesPlayed != null && gamesPlayed.length > 0) {
+  if (gamesPlayed != null && gamesPlayed.length > 0) {
     let averageKD = gamesPlayed.reduce((average, gamePlayed) => {
       return average + gamePlayed.killDeathRatio / gamesPlayed.length;
     }, 0);
