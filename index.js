@@ -137,9 +137,13 @@ function createDeleteButton(currentRow) {
  */
 function recalculateGlobalKDRatio(gamesPlayed) {
   if (gamesPlayed != null && gamesPlayed.length > 0) {
-    let averageKD = gamesPlayed.reduce((average, gamePlayed) => {
-      return average + gamePlayed.killDeathRatio / gamesPlayed.length;
-    }, 0);
+    let totalKills = 0;
+    let totalDeaths = 0;
+    for (const gamePlayed of gamesPlayed) {
+      totalKills += parseInt(gamePlayed.kills);
+      totalDeaths += parseInt(gamePlayed.deaths);
+    }
+    let averageKD = totalKills/totalDeaths;
     document.getElementById(globalKD).value = parseFloat(averageKD).toFixed(2);
   } else {
     document.getElementById(globalKD).value = 0;
