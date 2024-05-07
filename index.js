@@ -28,11 +28,18 @@ class GamePlayed {
     this.mode = mode;
     this.kills = kills;
     this.deaths = deaths;
+    this.calculateKillDeathRatio();
+  }
+
+  /**
+   * properly calculate the KD ratio - we can't divide by 0
+   */
+  calculateKillDeathRatio(){
     this.killDeathRatio = 0;
-    if (deaths > 0) {
-      this.killDeathRatio = parseFloat(kills / deaths).toFixed(2);
+    if (this.deaths > 0) {
+      this.killDeathRatio = parseFloat(this.kills / this.deaths).toFixed(2);
     } else {
-      this.killDeathRatio = kills;
+      this.killDeathRatio = this.kills;
     }
   }
 
@@ -81,7 +88,7 @@ if (addbutton != null) {
       row.insertCell(2).innerHTML = gamePlayed.mode;
       row.insertCell(3).innerHTML = gamePlayed.kills;
       row.insertCell(4).innerHTML = gamePlayed.deaths;
-      kdCell = row.insertCell(5);
+      let kdCell = row.insertCell(5);
       kdCell.innerHTML = gamePlayed.killDeathRatio;
       if (parseFloat(gamePlayed.killDeathRatio) >= 1) {
         kdCell.style.color = '#00FF00';
@@ -92,7 +99,7 @@ if (addbutton != null) {
       actions.appendChild(createDeleteButton(rowId++));
       document.getElementById(datePlayed).value = '';
       document.getElementById(mapName).value = '';
-      gameMode = document.getElementById(gameModeName).value = '';
+      document.getElementById(gameModeName).value = '';
       document.getElementById(numKillsName).value = 0;
       document.getElementById(numDeathsName).value = 0;
       recalculateGlobalKDRatio(allgamesPlayed);
