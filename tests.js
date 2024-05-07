@@ -1,6 +1,7 @@
 const chai = require('chai');
 const expect = require('chai').expect;
 const JSDOM = require('jsdom').JSDOM;
+const sinon = require('sinon'); //needed this to get around window.alert errors
 
 chai.use(require('chai-dom'));
 require('jsdom-global')();
@@ -19,6 +20,7 @@ describe('Week 10 Coding Assignment Test Suite:', ()=>{
     JSDOM.fromFile('index.html').then((dom) => {
       global.document = dom.window.document
     }).then(done,done);
+    alert = sinon.spy(); //replace the window.alert with a spy method, no need to test this
   })
   describe('Form validation should work', () =>{
     it('Should fail when any input is not supplied', ()=> {
