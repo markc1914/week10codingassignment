@@ -77,7 +77,13 @@ if (addbutton != null) {
       row.insertCell(2).innerHTML = gamePlayed.mode;
       row.insertCell(3).innerHTML = gamePlayed.kills;
       row.insertCell(4).innerHTML = gamePlayed.deaths;
-      row.insertCell(5).innerHTML = gamePlayed.killDeathRatio;
+      kdCell = row.insertCell(5);
+      kdCell.innerHTML = gamePlayed.killDeathRatio;
+      if (parseFloat(gamePlayed.killDeathRatio) >= 1) {
+        kdCell.style.color = '#00FF00';
+      } else {
+        kdCell.style.color = '#FF0000';
+      }
       let actions = row.insertCell(6);
       actions.appendChild(createDeleteButton(rowId++));
       document.getElementById(datePlayed).value = '';
@@ -94,20 +100,21 @@ if (addbutton != null) {
 const newLocal = 'button';
 /**
  * creates delete button for a row in a table based on that id
- * @param {number} rowId - which row needs a button
+ * @param {number} currentRow - which row needs a button
  * @returns the delete button for that row
  */
-function createDeleteButton(rowId) {
-  if(rowId != null && rowId != 'undefined' && rowId >= 0) {
+function createDeleteButton(currentRow) {
+  if(currentRow != null && currentRow != 'undefined' && currentRow >= 0) {
     let button = document.createElement(newLocal);
     button.className = 'btn btn-primary'; //add styling
-    button.id = rowId;
+    button.id = currentRow;
     button.innerHTML = 'Delete';
     button.onclick = () => {
-      let rowToDelete = document.getElementById(`game-${rowId}`);
+      let rowToDelete = document.getElementById(`game-${currentRow}`);
       rowToDelete.parentNode.removeChild(rowToDelete);
-      allgamesPlayed.splice(rowId, 1);
+      allgamesPlayed.splice(currentRow, 1);
       recalculateGlobalKDRatio(allgamesPlayed);
+      rowId--;
     };
     return button;
   }
@@ -123,6 +130,8 @@ function recalculateGlobalKDRatio(gamesPlayed) {
       return average + gamePlayed.killDeathRatio / gamesPlayed.length;
     }, 0);
     document.getElementById(globalKD).value = parseFloat(averageKD).toFixed(2);
+  } else {
+    document.getElementById(globalKD).value = 0;
   }
   return 0;
 }

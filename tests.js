@@ -1,6 +1,5 @@
 const chai = require('chai');
 const expect = require('chai').expect;
-const assert = require('chai').assert;
 const JSDOM = require('jsdom').JSDOM;
 
 chai.use(require('chai-dom'));
@@ -14,6 +13,8 @@ const validateForm = require('./index').validateForm;
 
 
 describe('Week 10 Coding Assignment Test Suite:', ()=>{
+  //need the actual DOM for the source JS file to work - had to google how to do this
+  //thanks stackoverflow
   beforeEach((done) => {
     JSDOM.fromFile('index.html').then((dom) => {
       global.document = dom.window.document
