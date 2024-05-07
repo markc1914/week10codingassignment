@@ -10,6 +10,8 @@ const numKillsName = 'num-kills'
 const numDeathsName = 'num-deaths';
 const tableName = 'list';
 const globalKD = 'globalKD';
+const green = '#07541d';
+const red = '#820505';
 
 let allgamesPlayed = [];
 class GamePlayed {
@@ -98,9 +100,9 @@ if (addbutton != null) {
       let kdCell = row.insertCell(5);
       kdCell.innerHTML = gamePlayed.killDeathRatio;
       if (parseFloat(gamePlayed.killDeathRatio) >= 1) {
-        kdCell.style.color = '#00FF00';
+        kdCell.style.color = green; //Green
       } else {
-        kdCell.style.color = '#FF0000';
+        kdCell.style.color = red; //Red
       }
       let actions = row.insertCell(6);
       actions.appendChild(createDeleteButton(rowId++));
@@ -143,6 +145,7 @@ function createDeleteButton(currentRow) {
  * @param {[GamePlayed]} allgamesPlayed
  */
 function recalculateGlobalKDRatio(gamesPlayed) {
+  let kdElement = document.getElementById(globalKD);
   if (gamesPlayed != null && gamesPlayed.length > 0) {
     let totalKills = 0;
     let totalDeaths = 0;
@@ -154,6 +157,12 @@ function recalculateGlobalKDRatio(gamesPlayed) {
     document.getElementById(globalKD).value = parseFloat(averageKD).toFixed(2);
   } else {
     document.getElementById(globalKD).value = 0;
+  }
+  //add styling to the average K/D ratio
+  if (parseFloat(kdElement.value) >= 1) {
+    kdElement.style.color = green;
+  } else {
+    kdElement.style.color = red;
   }
 }
 
