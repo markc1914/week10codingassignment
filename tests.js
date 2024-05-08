@@ -55,7 +55,7 @@ describe('Week 10 Coding Assignment Test Suite:', () => {
       //make sure it does nothing when input is incorrect
       expect(document.getElementById('globalKD').value).to.equal('0');
       let gamesPlayed = []
-      let game1 = new GamePlayed('Any', 'Any', 'Any', 10, 5);
+      let game1 = new GamePlayed(new Date(), 'Any', 'Any', 10, 5);
       gamesPlayed.push(game1);
       recalculateGlobalKDRatio(gamesPlayed);
       expect(document.getElementById('globalKD').value).to.equal('2.00');
