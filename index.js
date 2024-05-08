@@ -19,10 +19,10 @@ class GamePlayed {
   /**
    *  creates a new instance of game played for our table
    * @param {date} datePlayed - date and time of the game
-   * @param {string} map - the map name
-   * @param {string} mode - the game mode played
-   * @param {number} kills - number of enemy players killed
-   * @param {number} deaths - number of times killed by enemy player
+   * @param {String} map - the map name
+   * @param {String} mode - the game mode played
+   * @param {BigInt} kills - number of enemy players killed
+   * @param {BigInt} deaths - number of times killed by enemy player
    */
   constructor(datePlayed, map, mode, kills, deaths) {
     this.datePlayed = datePlayed;
@@ -50,8 +50,11 @@ class GamePlayed {
 let rowId = 0; //track the rows we add using this
 
 /**
- * validates required form input is submitted
- * @returns true if no errors - false if error is found
+ *
+ * @param {Date} gamePlayedDate
+ * @param {String} gameMap
+ * @param {String} gameMode
+ * @returns true if no errors, false if errors exist
  */
 function validateForm(gamePlayedDate, gameMap, gameMode) {
   if (gamePlayedDate == '') {
@@ -120,7 +123,7 @@ if (addbutton != null) {
 const newLocal = 'button';
 /**
  * creates delete button for a row in a table based on that id
- * @param {number} currentRow - which row needs a button
+ * @param {BigInt} currentRow - which row needs a button
  * @returns the delete button for that row
  */
 function createDeleteButton(currentRow) {
